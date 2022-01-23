@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "monero_headers.h"
+#include "worktips_headers.h"
 
 #include <boost/optional.hpp>
 

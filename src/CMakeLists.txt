@@ -27,7 +27,7 @@ find_package(Boost COMPONENTS
 find_package(HIDAPI)
 
 set(LIBRARIES
-        Monero::Monero
+        Worktips::Worktips
         ${Boost_LIBRARIES}
         ${HIDAPI_LIBRARIES}
         sodium

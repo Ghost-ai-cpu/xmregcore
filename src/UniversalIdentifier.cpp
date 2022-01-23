@@ -65,7 +65,7 @@ Output::identify(transaction const& tx,
                 "Mismatched sizes of key_derivation and rct::key");
 
         // use identity derivation instead
-        // solution based on that found in wallet2.cpp in monero
+        // solution based on that found in wallet2.cpp in worktips
         // this will cause the tx output to be effectively skipped
         memcpy(&derivation, rct::identity().bytes, sizeof(derivation));
     }
@@ -90,7 +90,7 @@ Output::identify(transaction const& tx,
                         "Mismatched sizes of key_derivation and rct::key");
 
                 // use identity derivation instead
-                // solution based on that found in wallet2.cpp in monero
+                // solution based on that found in wallet2.cpp in worktips
                 // this will cause the tx output to be effectively skipped
                 memcpy(&additional_derivations[i],
                        rct::identity().bytes,
@@ -132,7 +132,7 @@ Output::identify(transaction const& tx,
 		// and tx output key. If this is our output
 		// the caulcualted public spendkey should match
  		// our actuall public spend key avaiable in our
-	    // public monero address. Primary address is 
+	    // public worktips address. Primary address is 
 		// a special case of subaddress. 
 
         // we are always going to have the subaddress_spend

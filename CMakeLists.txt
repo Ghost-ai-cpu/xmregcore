@@ -15,7 +15,7 @@ option(BUILD_XMREGCORE_TESTS
 
 include(MyUtils)
 
-find_package(Monero)
+find_package(Worktips)
 
 add_executable(${PROJECT_NAME}
         example.cpp)

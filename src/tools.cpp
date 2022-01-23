@@ -18,19 +18,19 @@ namespace bf = boost::filesystem;
 string
 get_default_lmdb_folder(network_type nettype)
 {
-    // default path to monero folder
-    // on linux this is /home/<username>/.bitmonero
-    string default_monero_dir = tools::get_default_data_dir();
+    // default path to worktips folder
+    // on linux this is /home/<username>/.bitworktips
+    string default_worktips_dir = tools::get_default_data_dir();
 
     if (nettype == cryptonote::network_type::TESTNET)
-        default_monero_dir += "/testnet";
+        default_worktips_dir += "/testnet";
     if (nettype == cryptonote::network_type::STAGENET)
-        default_monero_dir += "/stagenet";
+        default_worktips_dir += "/stagenet";
 
 
     // the default folder of the lmdb blockchain database
     // is therefore as follows
-    return default_monero_dir + string("/lmdb");
+    return default_worktips_dir + string("/lmdb");
 }
 
 /**

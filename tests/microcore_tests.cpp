@@ -25,7 +25,7 @@ using ::testing::Not;
 using ::testing::internal::FilePath;
 
 //INSTANTIATE_TEST_CASE_P(
-//        DifferentMoneroNetworks, BlockchainSetupTest,
+//        DifferentWorktipsNetworks, BlockchainSetupTest,
 //        ::testing::Values(
 //                network_type::MAINNET,
 //                network_type::TESTNET,

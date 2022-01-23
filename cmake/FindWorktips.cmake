@@ -2,8 +2,8 @@
 # CMake helper for the majority of the cpp-ethereum modules.
 #
 # This module defines
-#     Monero_XXX_LIBRARIES, the libraries needed to use ethereum.
-#     Monero_FOUND, If false, do not try to use ethereum.
+#     Worktips_XXX_LIBRARIES, the libraries needed to use ethereum.
+#     Worktips_FOUND, If false, do not try to use ethereum.
 #
 # File addetped from cpp-ethereum
 #
@@ -29,69 +29,64 @@
 #------------------------------------------------------------------------------
 
 
-if (NOT MONERO_DIR)
-    set(MONERO_DIR ~/monero)
+if (NOT WORKTIPS_DIR)
+    set(WORKTIPS_DIR ~/worktips)
 endif()
 
-message(STATUS MONERO_DIR ": ${MONERO_DIR}")
+message(STATUS WORKTIPS_DIR ": ${WORKTIPS_DIR}")
 
-set(MONERO_SOURCE_DIR ${MONERO_DIR}
-        CACHE PATH "Path to the root directory for Monero")
+set(WORKTIPS_SOURCE_DIR ${WORKTIPS_DIR}
+        CACHE PATH "Path to the root directory for Worktips")
 
-# set location of monero build tree
-set(MONERO_BUILD_DIR ${MONERO_SOURCE_DIR}/build/release/
-        CACHE PATH "Path to the build directory for Monero")
+# set location of worktips build tree
+set(WORKTIPS_BUILD_DIR ${WORKTIPS_SOURCE_DIR}/build/release/
+        CACHE PATH "Path to the build directory for Worktips")
 
 
-if (NOT EXISTS ${MONERO_BUILD_DIR})
+if (NOT EXISTS ${WORKTIPS_BUILD_DIR})
     # try different location
-    message(STATUS "Trying different folder for monero libraries")
-    set(MONERO_BUILD_DIR ${MONERO_SOURCE_DIR}/build/Linux/master/release/
-        CACHE PATH "Path to the build directory for Monero" FORCE)
+    message(STATUS "Trying different folder for worktips libraries")
+    set(WORKTIPS_BUILD_DIR ${WORKTIPS_SOURCE_DIR}/build/Linux/master/release/
+        CACHE PATH "Path to the build directory for Worktips" FORCE)
 endif()
 
 
-if (NOT EXISTS ${MONERO_BUILD_DIR})   
-  message(FATAL_ERROR "Monero libraries not found in: ${MONERO_BUILD_DIR}")
+if (NOT EXISTS ${WORKTIPS_BUILD_DIR})   
+  message(FATAL_ERROR "Worktips libraries not found in: ${WORKTIPS_BUILD_DIR}")
 endif()
 
-MESSAGE(STATUS "Looking for libunbound") # FindUnbound.cmake from monero repo
+MESSAGE(STATUS "Looking for libunbound") # FindUnbound.cmake from worktips repo
 
 
-set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${MONERO_BUILD_DIR}"
-        CACHE PATH "Add Monero directory for library searching")
+set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${WORKTIPS_BUILD_DIR}"
+        CACHE PATH "Add Worktips directory for library searching")
 
 
-set(LIBS  blockchain_db
-    wallet
-    device
-    wallet-crypto
-    ${WALLET_CRYPTO}
-    cryptonote_core
-    cryptonote_basic
-    cryptonote_format_utils_basic
-    cryptonote_protocol
-    #daemonizer
-    blocks
-    lmdb
-    ringct
-    ringct_basic
-    common
-    cncrypto
-    #mnemonics
-    easylogging
-    epee
-    checkpoints
-    version
-    randomx
-    hardforks)
+set(LIBS common
+		blocks
+		cryptonote_basic
+		cryptonote_core
+		cryptonote_protocol
+		daemonizer
+		mnemonics
+		epee
+		lmdb
+		device
+		blockchain_db
+		ringct
+		wallet
+		cncrypto
+		easylogging
+		version
+		checkpoints
+		ringct_basic)
 
-set(Xmr_INCLUDE_DIRS "${CPP_MONERO_DIR}")
+set(Xmr_INCLUDE_DIRS "${CPP_WORKTIPS_DIR}")
 
 # if the project is a subset of main cpp-ethereum project
 # use same pattern for variables as Boost uses
 
-set(Monero_LIBRARIES "")
+set(Worktips_LIBRARIES "")
 
 foreach (l ${LIBS})
 
@@ -120,12 +115,12 @@ foreach (l ${LIBS})
 
 	set(Xmr_${L}_LIBRARIES ${Xmr_${L}_LIBRARY})
 
-	message(STATUS FindMonero " Xmr_${L}_LIBRARIES ${Xmr_${L}_LIBRARY}")
+	message(STATUS FindWorktips " Xmr_${L}_LIBRARIES ${Xmr_${L}_LIBRARY}")
 
     add_library(${l} STATIC IMPORTED)
 	set_property(TARGET ${l} PROPERTY IMPORTED_LOCATION ${Xmr_${L}_LIBRARIES})
 
-    set(Monero_LIBRARIES ${Monero_LIBRARIES} ${l} CACHE INTERNAL "Monero LIBRARIES")
+    set(Worktips_LIBRARIES ${Worktips_LIBRARIES} ${l} CACHE INTERNAL "Worktips LIBRARIES")
 
 endforeach()
 
@@ -143,7 +138,7 @@ FIND_PATH(UNBOUND_INCLUDE_DIR
 find_library (UNBOUND_LIBRARY unbound)
 if (WIN32 OR (${UNBOUND_LIBRARY} STREQUAL "UNBOUND_LIBRARY-NOTFOUND"))
     add_library(unbound STATIC IMPORTED)
-    set_property(TARGET unbound PROPERTY IMPORTED_LOCATION ${MONERO_BUILD_DIR}/external/unbound/libunbound.a)
+    set_property(TARGET unbound PROPERTY IMPORTED_LOCATION ${WORKTIPS_BUILD_DIR}/external/unbound/libunbound.a)
 endif()
 
 message("Xmr_WALLET-CRYPTO_LIBRARIES ${Xmr_WALLET-CRYPTO_LIBRARIES}")
@@ -160,39 +155,39 @@ message("WALLET_CRYPTO ${WALLET_CRYPTO}")
 
 
 
-message("FOUND Monero_LIBRARIES: ${Monero_LIBRARIES}")
+message("FOUND Worktips_LIBRARIES: ${Worktips_LIBRARIES}")
 
-message(STATUS ${MONERO_SOURCE_DIR}/build)
+message(STATUS ${WORKTIPS_SOURCE_DIR}/build)
 
-#macro(target_include_monero_directories target_name)
+#macro(target_include_worktips_directories target_name)
 
     #target_include_directories(${target_name}
         #PRIVATE
-        #${MONERO_SOURCE_DIR}/src
-        #${MONERO_SOURCE_DIR}/external
-        #${MONERO_SOURCE_DIR}/build
-        #${MONERO_SOURCE_DIR}/external/easylogging++
-        #${MONERO_SOURCE_DIR}/contrib/epee/include
-        #${MONERO_SOURCE_DIR}/external/db_drivers/liblmdb)
+        #${WORKTIPS_SOURCE_DIR}/src
+        #${WORKTIPS_SOURCE_DIR}/external
+        #${WORKTIPS_SOURCE_DIR}/build
+        #${WORKTIPS_SOURCE_DIR}/external/easylogging++
+        #${WORKTIPS_SOURCE_DIR}/contrib/epee/include
+        #${WORKTIPS_SOURCE_DIR}/external/db_drivers/liblmdb)
 
-#endmacro(target_include_monero_directories)
+#endmacro(target_include_worktips_directories)
 
 
-add_library(Monero::Monero INTERFACE IMPORTED GLOBAL)
+add_library(Worktips::Worktips INTERFACE IMPORTED GLOBAL)
 
 # Requires to new cmake
-#target_include_directories(Monero::Monero INTERFACE        
-    #${MONERO_SOURCE_DIR}/src
-    #${MONERO_SOURCE_DIR}/external
-    #${MONERO_SOURCE_DIR}/build
-    #${MONERO_SOURCE_DIR}/external/easylogging++
-    #${MONERO_SOURCE_DIR}/contrib/epee/include
-    #${MONERO_SOURCE_DIR}/external/db_drivers/liblmdb)
+#target_include_directories(Worktips::Worktips INTERFACE        
+    #${WORKTIPS_SOURCE_DIR}/src
+    #${WORKTIPS_SOURCE_DIR}/external
+    #${WORKTIPS_SOURCE_DIR}/build
+    #${WORKTIPS_SOURCE_DIR}/external/easylogging++
+    #${WORKTIPS_SOURCE_DIR}/contrib/epee/include
+    #${WORKTIPS_SOURCE_DIR}/external/db_drivers/liblmdb)
 
-set_target_properties(Monero::Monero PROPERTIES
+set_target_properties(Worktips::Worktips PROPERTIES
       INTERFACE_INCLUDE_DIRECTORIES 
-            "${MONERO_SOURCE_DIR}/src;${MONERO_SOURCE_DIR}/external;${MONERO_SOURCE_DIR}/src/crypto;${MONERO_SOURCE_DIR}/src/crypto/wallet;${MONERO_SOURCE_DIR}/build;${MONERO_SOURCE_DIR}/external/easylogging++;${MONERO_SOURCE_DIR}/contrib/epee/include;${MONERO_SOURCE_DIR}/external/db_drivers/liblmdb;${MONERO_BUILD_DIR}/generated_include/crypto/wallet")
+            "${WORKTIPS_SOURCE_DIR}/src;${WORKTIPS_SOURCE_DIR}/external;${WORKTIPS_SOURCE_DIR}/src/crypto;${WORKTIPS_SOURCE_DIR}/src/crypto/wallet;${WORKTIPS_SOURCE_DIR}/build;${WORKTIPS_SOURCE_DIR}/external/easylogging++;${WORKTIPS_SOURCE_DIR}/contrib/epee/include;${WORKTIPS_SOURCE_DIR}/external/db_drivers/liblmdb;${WORKTIPS_BUILD_DIR}/generated_include/crypto/wallet")
 
 
-target_link_libraries(Monero::Monero INTERFACE
-    ${Monero_LIBRARIES} ${WALLET_CRYPTO})
+target_link_libraries(Worktips::Worktips INTERFACE
+    ${Worktips_LIBRARIES} ${WALLET_CRYPTO})

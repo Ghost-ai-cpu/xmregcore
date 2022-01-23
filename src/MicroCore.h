@@ -5,7 +5,7 @@
 #ifndef XMREG01_MICROCORE_H
 #define XMREG01_MICROCORE_H
 
-#include "monero_headers.h"
+#include "worktips_headers.h"
 
 namespace xmreg
 {
