@@ -186,7 +186,7 @@ add_library(Worktips::Worktips INTERFACE IMPORTED GLOBAL)
 
 set_target_properties(Worktips::Worktips PROPERTIES
       INTERFACE_INCLUDE_DIRECTORIES 
-            "${WORKTIPS_SOURCE_DIR}/src;${WORKTIPS_SOURCE_DIR}/external;${WORKTIPS_SOURCE_DIR}/src/crypto;${WORKTIPS_SOURCE_DIR}/src/crypto/wallet;${WORKTIPS_SOURCE_DIR}/build;${WORKTIPS_SOURCE_DIR}/external/easylogging++;${WORKTIPS_SOURCE_DIR}/contrib/epee/include;${WORKTIPS_SOURCE_DIR}/external/db_drivers/liblmdb;${WORKTIPS_BUILD_DIR}/generated_include/crypto/wallet")
+            "${WORKTIPS_SOURCE_DIR}/src;${WORKTIPS_SOURCE_DIR}/external;${WORKTIPS_SOURCE_DIR}/src/crypto;${WORKTIPS_SOURCE_DIR}/src/wallet;${WORKTIPS_SOURCE_DIR}/build;${WORKTIPS_SOURCE_DIR}/external/easylogging++;${WORKTIPS_SOURCE_DIR}/contrib/epee/include;${WORKTIPS_SOURCE_DIR}/external/db_drivers/liblmdb")
 
 
 target_link_libraries(Worktips::Worktips INTERFACE
